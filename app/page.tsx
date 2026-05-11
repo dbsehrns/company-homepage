@@ -256,7 +256,7 @@ export default function Home() {
               style={{ border: `1px solid ${pointColor}` }}
             >
               <div className="flex items-center justify-center bg-black/50 p-4">
-                <img src="/ArthroSpacer2.png" alt="ArthroSpacer" className="max-h-64 object-contain" />
+                <img src="/ArthroSpacer1.png" alt="ArthroSpacer" className="max-h-64 object-contain" />
               </div>
 
               <div>

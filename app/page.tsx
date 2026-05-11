@@ -5,6 +5,91 @@ import { useEffect, useState } from "react";
 const heroImages = ["/Hero1.png", "/Hero2.png", "/Hero3.png"];
 const pointColor = "rgb(190, 242, 100)";
 
+const mainTeamMembers = [
+  {
+    role: "부대표/COO",
+    name: "김무섭",
+    image: "/COO-Profile.png",
+    items: [
+      "가톨릭대학교 의과대학 의공학 박사",
+      "현 주식회사 이소 부대표 / 공장장 / 최고운영책임자",
+      "전 주식회사 카비랩 부대표 / 최고운영책임자",
+      "전 연세대학교 의과대학 융합의학과 겸임교수",
+      "전 신한대학교 마이크로디그리대학 기업전문교수",
+      "전 가톨릭대학교 의과대학 생체의공학연구소 연구원",
+      "전 서울성모병원 정형외과 전임연구원",
+      "의료기기 연구개발 경력 10년",
+      "다수의 SCI 논문 게재 및 특허 등록",
+      "정부지원 R&D 사업 연구책임자 자격 수주 다수",
+    ],
+  },
+  {
+    role: "CSO",
+    name: "김현주",
+    image: "/CSO-Profile.png",
+    items: [
+      "연세대학교 의과대학 의료기기산업학 석사",
+      "현 주식회사 이소 최고전략책임자",
+      "전 주식회사 카비랩 RA/QA 팀장",
+      "전 Medical IP RA/QA",
+      "GMP / DGMP 인증 경험",
+      "의료기기 품목허가 1, 2, 3등급 허가 자체 수행",
+      "FDA, CE MDR 등 글로벌 인허가 전주기 수행",
+      "의료기기 임상시험 및 성능평가 설계·수행",
+      "ISO 13485 및 MDSAP 기반 QMS 구축 및 운영",
+      "GMP·내부감사·PMS 관리 경험",
+    ],
+  },
+  {
+    role: "CMO",
+    name: "전영대",
+    image: "/CMO-Profile.png",
+    items: [
+      "울산대학교 의과대학 정형외과학 박사",
+      "현 주식회사 이소 최고의료책임자",
+      "현 울산대학교 의과대학 정형외과학교실 조교수",
+      "전 주식회사 카비랩 최고의료책임자",
+      "전 분당서울대학교병원 정형외과 견관절 전임의",
+      "대한견주관절의학회 국제협력위원회 위원",
+      "대한관절경학회 학술위원회 위원",
+      "대한정형외과스포츠의학회 보험위원",
+      "아시아·태평양 정형외과 수부상지학회 학술위원회 위원",
+      "대한정형외과학회 학회지 편집운영위원회 간사",
+    ],
+  },
+];
+
+const subTeamMembers = [
+  {
+    role: "QA Engineer",
+    name: "이다영",
+    items: [
+      "서울여자대학교 멀티미디어학사",
+      "현 주식회사 이소 QA Engineer",
+      "전 주식회사 카비랩 데이터팀장",
+      "전 메디컬아이피 MCC팀 데이터관리자",
+    ],
+  },
+  {
+    role: "HW Engineer",
+    name: "김범수",
+    items: [
+      "동남보건대학교 보건3D프린팅융합 전문학사",
+      "현 주식회사 이소 HW Engineer",
+      "전 주식회사 카비랩 기술지원팀장",
+    ],
+  },
+  {
+    role: "SW/AI Engineer",
+    name: "어정호",
+    items: [
+      "호서대학교 컴퓨터공학사",
+      "현 주식회사 이소 SW/AI Engineer",
+      "전 주식회사 카비랩 SW/AI Engineer",
+    ],
+  },
+];
+
 export default function Home() {
   const [currentHero, setCurrentHero] = useState(0);
 
@@ -196,38 +281,40 @@ export default function Home() {
 
       <section id="team" className="relative overflow-hidden bg-black px-6 py-24">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-35"
+          className="absolute inset-0 bg-cover bg-center opacity-45"
           style={{ backgroundImage: "url('/AboutUS_Back.png')" }}
         />
+        <div className="absolute inset-0 bg-black/20" />
 
         <div className="relative z-10 mx-auto max-w-7xl">
-          <h2 className="mb-10 text-5xl font-black" style={{ color: pointColor }}>
+          <h2 className="mb-8 text-5xl font-black" style={{ color: pointColor }}>
             Team
           </h2>
 
-          <div className="grid gap-6 md:grid-cols-[360px_1fr]">
+          <div className="grid gap-5 md:grid-cols-[360px_1fr]">
             <div
-              className="rounded-xl bg-black/70 p-4"
+              className="rounded-lg bg-black/70 p-2"
               style={{ border: `1px solid ${pointColor}` }}
             >
               <img
                 src="/CEO-Profile.png"
                 alt="CEO Louis Youn"
-                className="h-full max-h-[520px] w-full rounded-lg object-cover object-top"
+                className="h-full max-h-[420px] w-full rounded-md object-cover object-top"
               />
             </div>
 
             <div
-              className="rounded-xl bg-black/70 p-6"
+              className="overflow-hidden rounded-lg bg-black/70"
               style={{ border: `1px solid ${pointColor}` }}
             >
               <h3
-                className="mb-5 px-5 py-2 text-3xl font-black text-black"
+                className="px-6 py-3 text-3xl font-black text-black"
                 style={{ backgroundColor: pointColor }}
               >
-                CEO | Louis Youn
+                CEO | <span className="text-white">Louis Youn</span>
               </h3>
-              <ul className="space-y-1 text-sm leading-6 text-gray-100 md:text-base md:leading-7">
+
+              <ul className="space-y-1 px-6 py-5 text-sm leading-6 text-gray-100 md:text-base md:leading-7">
                 <li>- 가톨릭대학교 의과대학 의공학 박사</li>
                 <li>- 현 주식회사 이소 대표이사</li>
                 <li>- 현 연세대학교 의과대학 융합의학과 겸임교수</li>
@@ -243,100 +330,54 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                role: "부대표/COO",
-                name: "김무섭",
-                items: [
-                  "가톨릭대학교 의과대학 의공학 박사",
-                  "현 주식회사 이소 부대표 / 공장장 / 최고운영책임자",
-                  "전 주식회사 카비랩 부대표 / 최고운영책임자",
-                  "전 연세대학교 의과대학 융합의학과 겸임교수",
-                  "전 신한대학교 마이크로디그리대학 기업전문교수",
-                  "전 가톨릭대학교 의과대학 생체의공학연구소 연구원",
-                  "전 서울성모병원 정형외과 전임연구원",
-                  "의료기기 연구개발 경력 10년",
-                  "다수의 SCI 논문 게재 및 특허 등록",
-                  "정부지원 R&D 사업 연구책임자 자격 수주 다수",
-                ],
-              },
-              {
-                role: "CSO",
-                name: "김현주",
-                items: [
-                  "연세대학교 의과대학 의료기기산업학 석사",
-                  "현 주식회사 이소 최고전략책임자",
-                  "전 주식회사 카비랩 RA/QA 팀장",
-                  "전 Medical IP RA/QA",
-                  "GMP / DGMP 인증 경험",
-                  "의료기기 품목허가 1, 2, 3등급 허가 자체 수행",
-                  "FDA, CE MDR 등 글로벌 인허가 전주기 수행",
-                  "의료기기 임상시험 및 성능평가 설계·수행",
-                  "ISO 13485 및 MDSAP 기반 QMS 구축 및 운영",
-                  "GMP·내부감사·PMS 관리 경험",
-                ],
-              },
-              {
-                role: "CMO",
-                name: "전영대",
-                items: [
-                  "울산대학교 의과대학 정형외과학 박사",
-                  "현 주식회사 이소 최고의료책임자",
-                  "현 울산대학교 의과대학 정형외과학교실 조교수",
-                  "전 주식회사 카비랩 최고의료책임자",
-                  "전 분당서울대학교병원 정형외과 견관절 전임의",
-                  "대한견주관절의학회 국제협력위원회 위원",
-                  "대한관절경학회 학술위원회 위원",
-                  "대한정형외과스포츠의학회 보험위원",
-                  "아시아·태평양 정형외과 수부상지학회 학술위원회 위원",
-                  "대한정형외과학회 학회지 편집운영위원회 간사",
-                ],
-              },
-              {
-                role: "QA Engineer",
-                name: "이다영",
-                items: [
-                  "서울여자대학교 멀티미디어학사",
-                  "현 주식회사 이소 QA Engineer",
-                  "전 주식회사 카비랩 데이터팀장",
-                  "전 메디컬아이피 MCC팀 데이터관리자",
-                ],
-              },
-              {
-                role: "HW Engineer",
-                name: "김범수",
-                items: [
-                  "동남보건대학교 보건3D프린팅융합 전문학사",
-                  "현 주식회사 이소 HW Engineer",
-                  "전 주식회사 카비랩 기술지원팀장",
-                  " ",
-                ],
-              },
-              {
-                role: "SW/AI Engineer",
-                name: "어정호",
-                items: [
-                  "호서대학교 컴퓨터공학사",
-                  "현 주식회사 이소 SW/AI Engineer",
-                  "전 주식회사 카비랩 SW/AI Engineer",
-                  " ",
-                ],
-              },
-            ].map((member) => (
+          <div className="mt-5 grid gap-5 lg:grid-cols-3">
+            {mainTeamMembers.map((member) => (
               <div
                 key={`${member.role}-${member.name}`}
-                className="rounded-xl bg-black/75 p-5"
+                className="overflow-hidden rounded-lg bg-black/70"
                 style={{ border: `1px solid ${pointColor}` }}
               >
                 <h4
-                  className="mb-4 px-3 py-2 text-lg font-black text-black"
+                  className="px-4 py-2 text-xl font-black text-black"
                   style={{ backgroundColor: pointColor }}
                 >
-                  {member.role} | {member.name}
+                  {member.role} | <span className="text-white">{member.name}</span>
                 </h4>
 
-                <ul className="space-y-1 text-sm leading-6 text-gray-200">
+                <div className="p-4">
+                  <div className="mb-4 flex justify-center">
+                    <img
+                      src={member.image}
+                      alt={`${member.role} ${member.name}`}
+                      className="h-[250px] w-[210px] object-cover object-top"
+                    />
+                  </div>
+
+                  <ul className="space-y-1 text-xs leading-5 text-gray-100">
+                    {member.items.map((item) => (
+                      <li key={item}>- {item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 grid gap-5 lg:grid-cols-3">
+            {subTeamMembers.map((member) => (
+              <div
+                key={`${member.role}-${member.name}`}
+                className="overflow-hidden rounded-lg bg-black/70"
+                style={{ border: `1px solid ${pointColor}` }}
+              >
+                <h4
+                  className="px-4 py-2 text-xl font-black text-black"
+                  style={{ backgroundColor: pointColor }}
+                >
+                  {member.role} | <span className="text-white">{member.name}</span>
+                </h4>
+
+                <ul className="space-y-1 px-5 py-5 text-sm leading-6 text-gray-100">
                   {member.items.map((item) => (
                     <li key={item}>- {item}</li>
                   ))}

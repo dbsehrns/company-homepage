@@ -310,6 +310,7 @@ export default function Home() {
                   "동남보건대학교 보건3D프린팅융합 전문학사",
                   "현 주식회사 이소 HW Engineer",
                   "전 주식회사 카비랩 기술지원팀장",
+                  " ",
                 ],
               },
               {
@@ -319,6 +320,7 @@ export default function Home() {
                   "호서대학교 컴퓨터공학사",
                   "현 주식회사 이소 SW/AI Engineer",
                   "전 주식회사 카비랩 SW/AI Engineer",
+                  " ",
                 ],
               },
             ].map((member) => (

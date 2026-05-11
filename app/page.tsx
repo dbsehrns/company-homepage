@@ -133,9 +133,8 @@ export default function Home() {
         {heroImages.map((image, index) => (
           <div
             key={image}
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-              index === currentHero ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${index === currentHero ? "opacity-100" : "opacity-0"
+              }`}
             style={{ backgroundImage: `url(${image})` }}
           />
         ))}
@@ -388,28 +387,59 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="relative bg-black px-6 py-24">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="mb-10 text-5xl font-black" style={{ color: pointColor }}>
+      <section id="contact" className="relative overflow-hidden bg-black px-6 py-24">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-50"
+          style={{ backgroundImage: "url('/AboutUS_Back.png')" }}
+        />
+        <div className="absolute inset-0 bg-black/45" />
+
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <h2
+            className="mb-14 text-6xl font-black"
+            style={{ color: pointColor }}
+          >
             Contact
           </h2>
 
-          <div className="grid gap-8 md:grid-cols-2 md:items-center">
-            <div
-              className="overflow-hidden rounded-xl bg-white"
-              style={{ border: `1px solid ${pointColor}` }}
-            >
-              <img src="/MAP.png" alt="EASO location map" className="w-full" />
+          <div className="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
+            <div className="overflow-hidden bg-white">
+              <img
+                src="/MAP.png"
+                alt="EASO location map"
+                className="h-full w-full object-cover"
+              />
             </div>
 
-            <div
-              className="rounded-xl bg-black/70 p-8 text-lg leading-9 text-gray-100"
-              style={{ border: `1px solid ${pointColor}` }}
-            >
-              <p>서울특별시 서초구 방배중앙로 207-10, 방배아크로리버 104동 지하1층 B107호</p>
-              <p className="mt-4">Tel: 010-3115-3758</p>
-              <p>Fax: 010-3115-3758</p>
-              <p>Contact: dbsehrns@naver.com</p>
+            <div className="space-y-8">
+              <div
+                className="rounded-lg bg-[#2f342f]/95 p-8 text-xl leading-8 text-white"
+                style={{ border: `1px solid ${pointColor}` }}
+              >
+                <p>서울특별시 서초구 방배중앙로 207-10,</p>
+                <p>방배아크로리버 104동 지하1층 B107호</p>
+                <p>Tel: 010-3115-3758</p>
+                <p>Fax: 010-3115-3758</p>
+                <p>Contact: dbsehrns@naver.com</p>
+              </div>
+
+              <div
+                className="rounded-lg bg-[#2f342f]/95 p-8 text-xl leading-8 text-white"
+                style={{ border: `1px solid ${pointColor}` }}
+              >
+                <p>&lt;수시 채용&gt;</p>
+                <p>
+                  채용 포지션: QA/HW/SW/Data Engineer 각 0명
+                  &#40;의료기기 관련 경력 우대&#41;
+                </p>
+                <p>담당 업무: 포지션 별로 경력과 능력에 따른 차등 업무 할당</p>
+                <p>자격 요건: 학력 및 경력 무관</p>
+                <p>연봉 조건: 협의</p>
+                <p>근무 조건: 월-금 9:00 - 18:00</p>
+                <p>전형: 서류 1차 면접-2차 면접-합격</p>
+                <p>제출 서류: 이력서 및 포트폴리오 &#40;자유 양식&#41;</p>
+                <p>제출 방법: dbsehrns@naver.com 메일 제출</p>
+              </div>
             </div>
           </div>
         </div>

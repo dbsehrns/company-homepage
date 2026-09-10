@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ImageSlider from "./ImageSlider";
 
 const heroImages = ["/Hero1.png", "/Hero2.png", "/Hero3.png"];
 const pointColor = "rgb(190, 242, 100)";
@@ -111,6 +112,17 @@ const subTeamMembers = [
       "AI-driven automated design platforms",
     ],
   },
+  {
+    role: "Intern",
+    name: "JoongHoon Shin",
+    items: [
+      "B.S. in Software Technology, Konkuk University",
+      "Intern, EASO Co. Ltd.",
+      "Medical AI software development",
+      "IT system operation",
+      "AI-driven automated design platforms",
+    ],
+  },
 ];
 
 type OfficeId = "hq" | "rnd";
@@ -153,6 +165,18 @@ const rtptialFeatures = [
   "Automatic retroversion in 0.1° steps with canal entry axis guide",
   "Simple, rigid saw guide with built-in fixation pin guides",
   "Web-based, no installation: review, print, automated fabrication",
+];
+
+const arthroSpacerSlides = [
+  { src: "/cannula-set-3.webp", alt: "ArthroSpacer hybrid cannulas, set of three" },
+  { src: "/cannula-set-3-side.webp", alt: "ArthroSpacer hybrid cannulas, side view" },
+  { src: "/cannula-standing.webp", alt: "ArthroSpacer cannula, standing" },
+  { src: "/cannula-standing-side.webp", alt: "ArthroSpacer cannula, standing side view" },
+  { src: "/cannula-oblique.webp", alt: "ArthroSpacer cannula, oblique view" },
+  { src: "/cannula-lying-side.webp", alt: "ArthroSpacer cannula, lying side view" },
+  { src: "/cannula-detail-wings.webp", alt: "ArthroSpacer cannula, multi-wing detail" },
+  { src: "/cannula-detail-instrument-port.webp", alt: "ArthroSpacer cannula, instrument port detail" },
+  { src: "/cannula-detail-collage.webp", alt: "ArthroSpacer cannula, detail collage" },
 ];
 
 const arthroSpacerFeatures = [
@@ -347,9 +371,11 @@ export default function Home() {
               className="grid gap-6 rounded-2xl bg-black/60 p-6 md:grid-cols-[360px_1fr]"
               style={{ border: `1px solid ${pointColor}` }}
             >
-              <div className="flex items-center justify-center bg-black/50 p-4">
-                <img src="/ArthroSpacer1.png" alt="ArthroSpacer" className="max-h-64 object-contain" />
-              </div>
+              <ImageSlider
+                slides={arthroSpacerSlides}
+                accentColor={pointColor}
+                className="h-64 bg-black/50 md:h-auto md:min-h-[18rem]"
+              />
 
               <div>
                 <h3
@@ -433,10 +459,11 @@ export default function Home() {
                 style={{ border: `1px solid ${pointColor}` }}
               >
                 <h4
-                  className="px-4 py-2 text-xl font-black text-black"
+                  className="flex flex-wrap items-center gap-x-2 px-4 py-2 text-xl font-black text-black lg:min-h-[4.5rem]"
                   style={{ backgroundColor: pointColor }}
                 >
-                  {member.role} | <span className="text-white">{member.name}</span>
+                  <span className="whitespace-nowrap">{member.role} |</span>
+                  <span className="whitespace-nowrap text-white">{member.name}</span>
                 </h4>
 
                 <div className="p-4">
@@ -458,7 +485,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-5 grid gap-5 lg:grid-cols-3">
+          <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {subTeamMembers.map((member) => (
               <div
                 key={`${member.role}-${member.name}`}
@@ -466,10 +493,11 @@ export default function Home() {
                 style={{ border: `1px solid ${pointColor}` }}
               >
                 <h4
-                  className="px-4 py-2 text-xl font-black text-black"
+                  className="flex flex-wrap items-center gap-x-2 px-4 py-2 text-xl font-black text-black lg:min-h-[4.5rem]"
                   style={{ backgroundColor: pointColor }}
                 >
-                  {member.role} | <span className="text-white">{member.name}</span>
+                  <span className="whitespace-nowrap">{member.role} |</span>
+                  <span className="whitespace-nowrap text-white">{member.name}</span>
                 </h4>
 
                 <ul className="space-y-1 px-5 py-5 text-sm leading-6 text-gray-100">

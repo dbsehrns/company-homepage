@@ -113,6 +113,40 @@ const subTeamMembers = [
   },
 ];
 
+type OfficeId = "hq" | "rnd";
+
+const offices: { id: OfficeId; tab: string; name: string; query: string }[] = [
+  {
+    id: "hq",
+    tab: "HQ · Ulsan",
+    name: "EASO Headquarters, University of Ulsan College of Medicine",
+    // Address query: the institution name geocodes to the wrong district.
+    query: "30 Badeurae 1-gil, Dong-gu, Ulsan, South Korea",
+  },
+  {
+    id: "rnd",
+    tab: "R&D Center · Seoul",
+    name: "EASO R&D Center, Bangbae-AcroRiver Bldg 104",
+    // Verified on Google Maps: the building is on Bangbaejungang-ro, not Bangbae-ro.
+    query: "207-10 Bangbaejungang-ro, Seocho-gu, Seoul, South Korea",
+  },
+];
+
+// Google Maps, English labels. With NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY set, the
+// official Maps Embed API is used; without a key, the public embed URL is used.
+const mapsEmbedKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY;
+
+function mapEmbedUrl(query: string) {
+  const q = encodeURIComponent(query);
+  return mapsEmbedKey
+    ? `https://www.google.com/maps/embed/v1/place?key=${mapsEmbedKey}&q=${q}&language=en&zoom=16`
+    : `https://www.google.com/maps?q=${q}&hl=en&z=16&output=embed`;
+}
+
+function mapLinkUrl(query: string) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}&hl=en`;
+}
+
 const rtptialFeatures = [
   "Humeral head resection PSI, printed in resin or metal",
   "Upload images, one-click design, final PSI in under 3 minutes",
@@ -131,6 +165,8 @@ const arthroSpacerFeatures = [
 
 export default function Home() {
   const [currentHero, setCurrentHero] = useState(0);
+  const [activeOffice, setActiveOffice] = useState<OfficeId>("hq");
+  const activeOfficeInfo = offices.find((office) => office.id === activeOffice) ?? offices[0];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -463,12 +499,57 @@ export default function Home() {
           </h2>
 
           <div className="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
-            <div className="overflow-hidden bg-white">
-              <img
-                src="/MAP.png"
-                alt="EASO location map"
-                className="h-full w-full object-cover"
-              />
+            <div
+              className="flex flex-col overflow-hidden rounded-lg bg-black/70"
+              style={{ border: `1px solid ${pointColor}` }}
+            >
+              <div role="tablist" aria-label="EASO offices" className="flex">
+                {offices.map((office) => {
+                  const active = office.id === activeOffice;
+                  return (
+                    <button
+                      key={office.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => setActiveOffice(office.id)}
+                      className={`flex-1 px-4 py-3 text-sm font-bold transition-colors md:text-base ${
+                        active ? "text-black" : "text-white hover:bg-white/10"
+                      }`}
+                      style={active ? { backgroundColor: pointColor } : undefined}
+                    >
+                      {office.tab}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {offices.map((office) => (
+                <iframe
+                  key={office.id}
+                  title={`Google Map: ${office.name}`}
+                  src={mapEmbedUrl(office.query)}
+                  className={`${
+                    office.id === activeOffice ? "block" : "hidden"
+                  } h-[320px] w-full border-0 bg-white md:h-[460px]`}
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              ))}
+
+              <div className="flex flex-col gap-2 px-5 py-4 text-sm text-gray-200 md:flex-row md:items-center md:justify-between">
+                <span>{activeOfficeInfo.name}</span>
+                <a
+                  href={mapLinkUrl(activeOfficeInfo.query)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold hover:underline"
+                  style={{ color: pointColor }}
+                >
+                  Open in Google Maps
+                </a>
+              </div>
             </div>
 
             <div className="space-y-8">
@@ -483,7 +564,7 @@ export default function Home() {
                 </p>
                 <p className="mt-3">
                   <span className="font-bold" style={{ color: pointColor }}>R&amp;D</span>{" "}
-                  Bldg 104, #B107, Bangbae-AcroRiver, 207-10 Bangbae-ro,
+                  Bldg 104, #B107, Bangbae-AcroRiver, 207-10 Bangbaejungang-ro,
                   Seocho-gu, Seoul, Republic of Korea
                 </p>
                 <div className="mt-5 space-y-1">
@@ -520,14 +601,9 @@ export default function Home() {
       </section>
 
       <footer
-        className="border-t bg-black px-6 py-10 text-center text-sm text-gray-400"
+        className="border-t bg-black px-6 py-8 text-center text-sm text-gray-400"
         style={{ borderColor: pointColor }}
       >
-        <img
-          src="/logo-on-dark.svg"
-          alt="EASO Easy Solution"
-          className="mx-auto mb-4 h-10 w-auto"
-        />
         © 2026 EASO Co. Ltd. All rights reserved.
       </footer>
     </main>

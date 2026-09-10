@@ -5,56 +5,71 @@ import { useEffect, useState } from "react";
 const heroImages = ["/Hero1.png", "/Hero2.png", "/Hero3.png"];
 const pointColor = "rgb(190, 242, 100)";
 
+const ceoProfile = [
+  "Ph.D. in Biomedical Engineering, College of Medicine, The Catholic University of Korea",
+  "CEO, EASO Co. Ltd.",
+  "Adjunct Professor, Department of Integrative Medicine, Yonsei University College of Medicine",
+  "Former Deputy CEO, Chief Technology Officer, and Head of Quality, KAVILAB Co. Ltd. (exited)",
+  "Former Industry Professor, Micro-degree College, Shinhan University",
+  "Former Clinical Assistant Professor and Medical Physicist, Proton Therapy Pte. Ltd., Singapore",
+  "Former Medical Physics Intern, Nagoya Proton Therapy Center, Japan",
+  "Former Part-Time Lecturer, Kindai University Hospital, Japan",
+  "Former Research Assistant Professor, College of Medicine, The Catholic University of Korea",
+  "Former Collaborating Researcher, MIPS, Stanford University, USA",
+  "Former Collaborating Researcher, BMEGG, University of California, Davis, USA",
+];
+
 const mainTeamMembers = [
   {
-    role: "부대표/COO",
-    name: "김무섭",
+    role: "COO / Deputy CEO",
+    name: "Moo-Sub Kim, Ph.D.",
     image: "/COO-Profile.png",
     items: [
-      "가톨릭대학교 의과대학 의공학 박사",
-      "현 주식회사 이소 부대표 / 공장장 / 최고운영책임자",
-      "전 주식회사 카비랩 부대표 / 최고운영책임자",
-      "전 연세대학교 의과대학 융합의학과 겸임교수",
-      "전 신한대학교 마이크로디그리대학 기업전문교수",
-      "전 가톨릭대학교 의과대학 생체의공학연구소 연구원",
-      "전 서울성모병원 정형외과 전임연구원",
-      "의료기기 연구개발 경력 10년",
-      "다수의 SCI 논문 게재 및 특허 등록",
-      "정부지원 R&D 사업 연구책임자 자격 수주 다수",
+      "Ph.D. in Biomedical Engineering, College of Medicine, The Catholic University of Korea",
+      "Deputy CEO / COO, EASO Co. Ltd.",
+      "Former Deputy CEO / COO, KAVILAB Co. Ltd. (exit completed)",
+      "Former Adjunct Professor, Department of Integrative Medicine, Yonsei University College of Medicine",
+      "Former Industry Professor, Shinhan University",
+      "Former Biomedical Engineering Researcher, The Catholic University of Korea",
+      "Former Medical Device Researcher, Seoul St. Mary’s Hospital",
+      "12 years in medical device R&D",
+      "SCI papers & licensed patents",
+      "PI, multiple government-funded R&D projects",
     ],
   },
   {
-    role: "CSO",
-    name: "김현주",
+    role: "CSO / Director",
+    name: "Hyeonjoo Kim, M.S.",
     image: "/CSO-Profile.png",
     items: [
-      "연세대학교 의과대학 의료기기산업학 석사",
-      "현 주식회사 이소 최고전략책임자",
-      "전 주식회사 카비랩 RA/QA 팀장",
-      "전 Medical IP RA/QA",
-      "의료영상 관련 AI기반 디지털의료제품 사업기획",
-      "국내외 시장 진출 전략 및 경영 전략 수립",
-      "국내외 의료기기 품목허가 및 제품화 전주기 수행",
-      "ISO 13485 및 MDSAP 기반 QMS 구축 및 운영",
-      "의료기기 / 디지털의료기기 GMP 인증",
-      "의료기기 임상시험 설계 및 통계분석",
+      "M.S. in Regulatory Affairs, Yonsei University College of Medicine",
+      "CSO, EASO Co. Ltd.",
+      "Former RA/QA Head, KAVILAB Co. Ltd.",
+      "Former RA/QA, Medical IP Co. Ltd.",
+      "10 years in RA/QA",
+      "Business planning for AI-based digital medical products in medical imaging",
+      "Domestic and global market-entry and business strategy",
+      "Korean Class I-III device approvals; Global RA: FDA / CE MDR",
+      "ISO 13485 / MDSAP-based QMS setup & operation",
+      "GMP / DGMP certification, internal audits, and PMS",
+      "Clinical & performance study design",
     ],
   },
   {
-    role: "CMO",
-    name: "전영대",
+    role: "CMO / Director",
+    name: "Young Dae Jeon, M.D., Ph.D.",
     image: "/CMO-Profile.png",
     items: [
-      "울산대학교 의과대학 정형외과학 박사",
-      "현 주식회사 이소 최고의료책임자",
-      "현 울산대학교 의과대학 정형외과학교실 조교수",
-      "전 주식회사 카비랩 최고의료책임자",
-      "전 분당서울대학교병원 정형외과 견관절 전임의",
-      "대한견주관절의학회 국제협력위원회 위원",
-      "대한관절경학회 학술위원회 위원",
-      "대한정형외과스포츠의학회 보험위원",
-      "아시아·태평양 정형외과 수부상지학회 학술위원회 위원",
-      "대한정형외과학회 학회지 편집운영위원회 간사",
+      "Ph.D. in Orthopaedic Surgery, University of Ulsan College of Medicine",
+      "CMO, EASO Co. Ltd.",
+      "Assistant Professor, Department of Orthopaedic Surgery, University of Ulsan College of Medicine",
+      "Former CMO, KAVILAB Co. Ltd.",
+      "Former Shoulder & Elbow Fellow, Seoul National University Bundang Hospital",
+      "International Exchange Committee, Korean Arthroscopy Society",
+      "Scientific Committee, Korean Shoulder & Elbow Society",
+      "Certified Orthopaedic Sports Specialist",
+      "Scientific Committee, Shoulder & Elbow, Asia Pacific Orthopaedic Association",
+      "Editorial Operations Secretary, Korean Shoulder & Elbow Society",
     ],
   },
 ];
@@ -62,32 +77,56 @@ const mainTeamMembers = [
 const subTeamMembers = [
   {
     role: "QA Engineer",
-    name: "이다영",
+    name: "Da-Youn Lee",
     items: [
-      "서울여자대학교 멀티미디어학사",
-      "현 주식회사 이소 QA Engineer",
-      "전 주식회사 카비랩 데이터팀장",
-      "전 메디컬아이피 Data Science팀 데이터관리자",
+      "B.S. in Multimedia, Seoul Women’s University",
+      "QA Engineer, EASO Co. Ltd.",
+      "Former Data Quality Team Lead, KAVILAB Co. Ltd.",
+      "Former Data Manager, Data Science Team, Medical IP Co. Ltd.",
+      "Medical image data & annotation",
+      "Database setup & quality control",
     ],
   },
   {
     role: "HW Engineer",
-    name: "김범수",
+    name: "Beom-Su Kim",
     items: [
-      "동남보건대학교 보건3D프린팅융합 전문학사",
-      "현 주식회사 이소 HW Engineer",
-      "전 주식회사 카비랩 기술지원팀장",
+      "A.S. in Healthcare 3D Printing, Dongnam Health University",
+      "HW Engineer, EASO Co. Ltd.",
+      "Former Tech Support Team Lead, KAVILAB Co. Ltd.",
+      "3D-printed device design & fabrication",
+      "Equipment operation & tech support",
+      "Production QA",
     ],
   },
   {
     role: "SW/AI Engineer",
-    name: "어정호",
+    name: "Jungho Uh",
     items: [
-      "호서대학교 컴퓨터공학사",
-      "현 주식회사 이소 SW/AI Engineer",
-      "전 주식회사 카비랩 SW/AI Engineer",
+      "B.S. in Computer Engineering, Hoseo University",
+      "SW/AI Engineer, EASO Co. Ltd.",
+      "Former SW/AI Engineer, KAVILAB Co. Ltd.",
+      "Medical AI software development",
+      "IT system operation",
+      "AI-driven automated design platforms",
     ],
   },
+];
+
+const rtptialFeatures = [
+  "Humeral head resection PSI, printed in resin or metal",
+  "Upload images, one-click design, final PSI in under 3 minutes",
+  "Automatic retroversion in 0.1° steps with canal entry axis guide",
+  "Simple, rigid saw guide with built-in fixation pin guides",
+  "Web-based, no installation: review, print, automated fabrication",
+];
+
+const arthroSpacerFeatures = [
+  "Ring-tie fixation for a secure hold and less dislodgement",
+  "Multi-wing tissue retraction",
+  "Dual seals prevent fluid leakage",
+  "Wider lumen prevents suture tangles",
+  "Arrowhead tip and tuned silicone hardness for easy insertion with less tissue trauma",
 ];
 
 export default function Home() {
@@ -109,7 +148,16 @@ export default function Home() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
           <a href="#home" className="flex items-center">
-            <img src="/LOGO.png" alt="EASO logo" className="h-9 w-auto" />
+            <img
+              src="/logo.svg"
+              alt="EASO Easy Solution"
+              className="hidden h-11 w-auto md:block"
+            />
+            <img
+              src="/logo-compact.svg"
+              alt="EASO"
+              className="h-9 w-auto md:hidden"
+            />
           </a>
 
           <nav className="hidden items-center gap-8 text-sm font-bold text-black md:flex">
@@ -124,7 +172,7 @@ export default function Home() {
             className="rounded-full px-4 py-2 text-xs font-bold text-black hover:opacity-80"
             style={{ backgroundColor: pointColor }}
           >
-            문의하기
+            Contact Us
           </a>
         </div>
       </header>
@@ -156,9 +204,11 @@ export default function Home() {
             </h1>
 
             <p className="max-w-2xl text-lg leading-8 text-white md:text-xl">
-              Easy Solution을 통해 정밀의료의 미래를 선도합니다.
+              Driving AX transformation and smart manufacturing for precision
+              orthopedic surgery.
               <br />
-              지능형 AI 시스템이 인간의 역량을 강화하고 불확실성을 제거합니다.
+              Our intelligent AI systems augment surgeons&apos; capabilities and
+              eliminate uncertainty.
             </p>
           </div>
         </div>
@@ -191,16 +241,16 @@ export default function Home() {
 
           <div className="max-w-4xl space-y-5 text-lg leading-9 text-gray-100">
             <p>
-              주식회사 이소는 정밀의료의 방식을 재정의하는 지능형 시스템을
-              구축합니다.
+              EASO Co. Ltd. builds intelligent systems that redefine how
+              precision medicine is practiced.
             </p>
             <p>
-              첨단 AI를 통해 복잡하고 수동적인 워크플로우를 자동화된 프로세스로
-              전환하여 정확성, 일관성, 효율성을 실현합니다.
+              Through advanced AI, we turn complex, manual workflows into
+              automated processes that deliver accuracy, consistency, and
+              efficiency.
             </p>
             <p className="font-bold text-white">
-              단순히 프로세스를 개선하는 것이 아닙니다. AI를 통해 프로세스를
-              재정의합니다.
+              We don&apos;t just improve the process. We redefine it with AI.
             </p>
           </div>
         </div>
@@ -243,11 +293,17 @@ export default function Home() {
                   RTPtial-PSI
                 </h3>
                 <p className="text-lg leading-8 text-gray-100">
-                  RTPtial-PSI는 인공관절전치환술을 위한 환자 맞춤형 수술
-                  가이드 설계를 자동화하는 3D 프린팅 기반 AI 시스템입니다.
-                  이를 통해 전문의는 일관된 수술 결과를 얻고, 중요한 수술
-                  과정의 위험을 줄일 수 있습니다.
+                  RTPtial-PSI is an AI-based, fully automated design and
+                  fabrication platform for 3D-printed patient-specific
+                  instruments (PSI) in total joint arthroplasty. It gives
+                  surgeons consistent outcomes and reduces risk in the most
+                  critical steps of surgery.
                 </p>
+                <ul className="mt-4 space-y-1 text-sm leading-6 text-gray-200 md:text-base md:leading-7">
+                  {rtptialFeatures.map((feature) => (
+                    <li key={feature}>- {feature}</li>
+                  ))}
+                </ul>
               </div>
             </div>
 
@@ -267,11 +323,16 @@ export default function Home() {
                   ArthroSpacer
                 </h3>
                 <p className="text-lg leading-8 text-gray-100">
-                  ArthroSpacer는 수술 중 안정적인 고정을 유지하고 체액 누출을
-                  최소화하도록 재설계된 관절경 캐뉼라입니다. 깨끗한 수술 시야를
-                  확보하고 더욱 효율적이고 신뢰할 수 있는 관절경 수술 경험을
-                  제공합니다.
+                  ArthroSpacer is a clinical data-based hybrid cannula for
+                  arthroscopy, redesigned to hold securely throughout surgery
+                  and minimize fluid leakage. It keeps the surgical field clear
+                  for a more efficient and reliable arthroscopic experience.
                 </p>
+                <ul className="mt-4 space-y-1 text-sm leading-6 text-gray-200 md:text-base md:leading-7">
+                  {arthroSpacerFeatures.map((feature) => (
+                    <li key={feature}>- {feature}</li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
@@ -289,6 +350,13 @@ export default function Home() {
           <h2 className="mb-8 text-5xl font-black" style={{ color: pointColor }}>
             Team
           </h2>
+
+          <p className="mb-8 max-w-4xl text-lg leading-8 text-gray-100">
+            A team of core members and hands-on experts who have worked together
+            at a previous company across the entire medical device lifecycle,
+            from development and regulatory approval to clinical validation and
+            commercialization.
+          </p>
 
           <div className="grid gap-5 md:grid-cols-[360px_1fr]">
             <div
@@ -310,21 +378,13 @@ export default function Home() {
                 className="px-6 py-3 text-3xl font-black text-black"
                 style={{ backgroundColor: pointColor }}
               >
-                CEO | <span className="text-white">Louis Youn</span>
+                CEO | <span className="text-white">Louis Youn, Ph.D.</span>
               </h3>
 
               <ul className="space-y-1 px-6 py-5 text-sm leading-6 text-gray-100 md:text-base md:leading-7">
-                <li>- 가톨릭대학교 의과대학 의공학 박사</li>
-                <li>- 현 주식회사 이소 대표이사</li>
-                <li>- 현 연세대학교 의과대학 융합의학과 겸임교수</li>
-                <li>- 전 주식회사 카비랩 부대표 / 최고기술책임자 / 품질책임자</li>
-                <li>- 전 신한대학교 마이크로디그리대학 기업전문교수</li>
-                <li>- 전 싱가포르 Proton Therapy Pte. Ltd. 임상조교수 & 의학물리학자</li>
-                <li>- 전 일본 Nagoya Proton Therapy Center 인턴 의학물리학자</li>
-                <li>- 전 일본 Kindai University Hospital 파트타임 강사</li>
-                <li>- 전 가톨릭대학교 의과대학 연구조교수</li>
-                <li>- 전 미국 Stanford University MIPS 연구소 Collaboration Researcher</li>
-                <li>- 전 미국 UC DAVIS BMEGG 연구소 Collaboration Researcher</li>
+                {ceoProfile.map((item) => (
+                  <li key={item}>- {item}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -413,32 +473,46 @@ export default function Home() {
 
             <div className="space-y-8">
               <div
-                className="rounded-lg bg-[#2f342f]/95 p-8 text-xl leading-8 text-white"
+                className="rounded-lg bg-[#2f342f]/95 p-8 text-lg leading-8 text-white md:text-xl"
                 style={{ border: `1px solid ${pointColor}` }}
               >
-                <p>서울특별시 서초구 방배중앙로 207-10,</p>
-                <p>방배아크로리버 104동 지하1층 B107호</p>
-                <p>Tel: 010-3115-3758</p>
-                <p>Fax: 010-3115-3758</p>
-                <p>Contact: dbsehrns@naver.com</p>
+                <p>
+                  <span className="font-bold" style={{ color: pointColor }}>HQ</span>{" "}
+                  #301-1, College of Medicine, University of Ulsan, 30 Badeurae
+                  1-gil, Dong-gu, Ulsan, Republic of Korea
+                </p>
+                <p className="mt-3">
+                  <span className="font-bold" style={{ color: pointColor }}>R&amp;D</span>{" "}
+                  Bldg 104, #B107, Bangbae-AcroRiver, 207-10 Bangbae-ro,
+                  Seocho-gu, Seoul, Republic of Korea
+                </p>
+                <div className="mt-5 space-y-1">
+                  <p>Tel: +82-70-4077-0601</p>
+                  <p>Mobile: +82-10-3115-3758</p>
+                  <p>Fax: +82-70-7507-6666</p>
+                  <p>Email: louis@easo.co.kr</p>
+                  <p>Web: easo.co.kr</p>
+                </div>
               </div>
 
               <div
-                className="rounded-lg bg-[#2f342f]/95 p-8 text-xl leading-8 text-white"
+                className="rounded-lg bg-[#2f342f]/95 p-8 text-lg leading-8 text-white md:text-xl"
                 style={{ border: `1px solid ${pointColor}` }}
               >
-                <p>&lt;수시 채용&gt;</p>
-                <p>
-                  채용 포지션: QA/HW/SW/Data Engineer 각 0명
-                  &#40;의료기기 관련 경력 우대&#41;
+                <p className="font-bold" style={{ color: pointColor }}>
+                  Careers (Rolling Recruitment)
                 </p>
-                <p>담당 업무: 포지션 별로 경력과 능력에 따른 차등 업무 할당</p>
-                <p>자격 요건: 학력 및 경력 무관</p>
-                <p>연봉 조건: 협의</p>
-                <p>근무 조건: 월-금 9:00 - 18:00</p>
-                <p>전형: 서류 1차 면접-2차 면접-합격</p>
-                <p>제출 서류: 이력서 및 포트폴리오 &#40;자유 양식&#41;</p>
-                <p>제출 방법: dbsehrns@naver.com 메일 제출</p>
+                <p>
+                  Positions: QA / HW / SW / Data Engineer
+                  &#40;medical device experience preferred&#41;
+                </p>
+                <p>Responsibilities: Assigned by position according to experience and skills</p>
+                <p>Requirements: Open to all education levels and career stages</p>
+                <p>Salary: Negotiable</p>
+                <p>Working hours: Mon-Fri, 9:00-18:00</p>
+                <p>Process: Document screening, 1st interview, 2nd interview, offer</p>
+                <p>Documents: Resume and portfolio &#40;free format&#41;</p>
+                <p>How to apply: Email to louis@easo.co.kr</p>
               </div>
             </div>
           </div>
@@ -446,9 +520,14 @@ export default function Home() {
       </section>
 
       <footer
-        className="border-t bg-black px-6 py-8 text-center text-sm text-gray-400"
+        className="border-t bg-black px-6 py-10 text-center text-sm text-gray-400"
         style={{ borderColor: pointColor }}
       >
+        <img
+          src="/logo-on-dark.svg"
+          alt="EASO Easy Solution"
+          className="mx-auto mb-4 h-10 w-auto"
+        />
         © 2026 EASO Co. Ltd. All rights reserved.
       </footer>
     </main>

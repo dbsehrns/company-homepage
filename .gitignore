@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# design sources / brand originals (not needed for the build; copies used by the site live in public/ and app/)
+/assets/
+
+# local tool & editor settings
+.claude/
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# logs
+*.log

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -62 700 700" width="700" height="700" role="img" aria-label="EASO mark">
+<path d="M162.2 52.0 L344.2 52.0 L317.1 238.0 L135.1 238.0 Z" fill="#3A3A3A" stroke="#3A3A3A" stroke-width="28" stroke-linejoin="round"/>
+<path d="M405.5 16.0 L647.5 16.0 L613.6 248.0 L371.6 248.0 Z" fill="#5FA52A" stroke="#5FA52A" stroke-width="28" stroke-linejoin="round"/>
+<path d="M70.2 312.0 L252.2 312.0 L225.1 498.0 L43.1 498.0 Z" fill="#3A3A3A" stroke="#3A3A3A" stroke-width="28" stroke-linejoin="round"/>
+<clipPath id="brc"><path d="M312.2 312.0 L564.2 312.0 L527.9 561.0 L275.9 561.0 Z" stroke="#5FA52A" stroke-width="28" stroke-linejoin="round"/></clipPath>
+<path d="M312.2 312.0 L564.2 312.0 L527.9 561.0 L275.9 561.0 Z" fill="#5FA52A" stroke="#5FA52A" stroke-width="28" stroke-linejoin="round"/>
+<g clip-path="url(#brc)"><path d="M581 296 C540 420 420 520 262 578 L600 600 L600 296 Z" fill="#3A3A3A"/><path d="M581 296 C540 420 420 520 262 578" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/></g>
+</svg>

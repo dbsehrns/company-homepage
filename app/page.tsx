@@ -78,7 +78,7 @@ const mainTeamMembers = [
 const subTeamMembers = [
   {
     role: "QA Engineer",
-    name: "Da-Youn Lee",
+    name: "Da-Young Lee",
     items: [
       "B.S. in Multimedia, Seoul Women’s University",
       "QA Engineer, EASO Co. Ltd.",
@@ -440,7 +440,7 @@ export default function Home() {
                 className="px-6 py-3 text-3xl font-black text-black"
                 style={{ backgroundColor: pointColor }}
               >
-                CEO | <span className="text-white">Louis Youn, Ph.D.</span>
+                CEO | Louis Youn, Ph.D.
               </h3>
 
               <ul className="space-y-1 px-6 py-5 text-sm leading-6 text-gray-100 md:text-base md:leading-7">
@@ -463,7 +463,7 @@ export default function Home() {
                   style={{ backgroundColor: pointColor }}
                 >
                   <span className="whitespace-nowrap">{member.role} |</span>
-                  <span className="whitespace-nowrap text-white">{member.name}</span>
+                  <span className="whitespace-nowrap">{member.name}</span>
                 </h4>
 
                 <div className="p-4">
@@ -497,7 +497,7 @@ export default function Home() {
                   style={{ backgroundColor: pointColor }}
                 >
                   <span className="whitespace-nowrap">{member.role} |</span>
-                  <span className="whitespace-nowrap text-white">{member.name}</span>
+                  <span className="whitespace-nowrap">{member.name}</span>
                 </h4>
 
                 <ul className="space-y-1 px-5 py-5 text-sm leading-6 text-gray-100">

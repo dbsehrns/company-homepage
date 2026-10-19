@@ -26,6 +26,21 @@ const ko: Dictionary = {
   solutions: {
     rtptial: {
       imageAlts: ["RTPtial PSI 1", "RTPtial PSI 2"],
+      viewer: {
+        label: "RTPtial-PSI 가이드 3D 뷰어",
+        models: { humerus: "상완골 PSI", glenoid: "관절와 PSI" },
+        loading: "3D 모델을 불러오는 중…",
+        hintRotate: "드래그로 회전",
+        hintClickZoom: "클릭 후 스크롤로 확대",
+        hintScroll: "스크롤로 확대",
+        hintPinch: "두 손가락으로 확대",
+        tapToExplore: "탭하여 3D로 보기",
+        done: "완료",
+        bone: "뼈 표시",
+        reset: "처음 시점으로",
+        expand: "전체 화면",
+        collapse: "전체 화면 닫기",
+      },
       description:
         "RTPtial-PSI는 인공관절전치환술을 위한 환자 맞춤형 수술 가이드 설계를 자동화하는 3D 프린팅 기반 AI 시스템입니다. 이를 통해 전문의는 일관된 수술 결과를 얻고, 중요한 수술 과정의 위험을 줄일 수 있습니다.",
       features: [

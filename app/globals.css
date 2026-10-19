@@ -24,3 +24,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Korean wraps between words, not inside them; a word longer than its line
+   still breaks rather than overflowing. (Not for Japanese, which has no spaces.) */
+:lang(ko) {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Backdrop shared by the product media (3D viewer, photo slider): a faint
+   accent glow over near-black. */
+@utility media-stage {
+  background:
+    radial-gradient(ellipse at 50% 55%, rgb(190 242 100 / 0.1), transparent 62%),
+    linear-gradient(180deg, #141414, #050505);
+}

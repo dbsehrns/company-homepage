@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import ImageSlider from "./ImageSlider";
 import LanguageSwitcher from "./LanguageSwitcher";
+import PsiViewer from "./PsiViewer";
 import type { Dictionary } from "./i18n/en";
 import type { Locale } from "./i18n/locales";
 import { restorePosition } from "./scrollPosition";
@@ -53,6 +54,14 @@ function mapLinkUrl(query: string, locale: Locale) {
 
 const rtptialImages = ["/RTPtial-PSI1.png", "/RTPtial-PSI2.png"];
 
+// Display meshes of each guide on its bone, without the engraved serial.
+// viewFrom is the opening camera direction in model axes (+x patient left,
+// +y superior, +z anterior).
+const psiModels = [
+  { id: "humerus", url: "/models/psi-humerus.glb", viewFrom: [-0.32, 0.34, 0.88] },
+  { id: "glenoid", url: "/models/psi-glenoid.glb", viewFrom: [0.88, 0.34, 0.32] },
+] as const;
+
 // Alt texts come from the dictionary, in this order.
 const arthroSpacerImages = [
   "/cannula-set-3.webp",
@@ -65,6 +74,63 @@ const arthroSpacerImages = [
   "/cannula-detail-instrument-port.webp",
   "/cannula-detail-collage.webp",
 ];
+
+const solutionCard = "grid items-center gap-6 rounded-2xl bg-black/60 p-6 lg:gap-8";
+const solutionMedia = "lg:aspect-[16/11]";
+
+function SolutionText({
+  title,
+  description,
+  features,
+}: {
+  title: string;
+  description: string;
+  features: string[];
+}) {
+  return (
+    <div>
+      <h3
+        className="mb-5 px-5 py-2 text-3xl font-black text-black"
+        style={{ backgroundColor: pointColor }}
+      >
+        {title}
+      </h3>
+      <p className="text-lg leading-8 text-gray-100">{description}</p>
+      <DotList
+        items={features}
+        className="mt-5 space-y-2 text-sm leading-6 text-gray-200 md:text-base md:leading-7"
+      />
+    </div>
+  );
+}
+
+// Bullets in the accent color; each dot is centred on its item's first line.
+function DotList({ items, className = "" }: { items: string[]; className?: string }) {
+  return (
+    <ul className={className}>
+      {items.map((item) => (
+        <li key={item} className="flex gap-3">
+          <span aria-hidden className="flex h-[1lh] shrink-0 items-center">
+            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: pointColor }} />
+          </span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function MemberHeading({ role, name }: { role: string; name: string }) {
+  return (
+    <h4
+      className="flex flex-wrap items-center gap-x-2 px-5 py-3 text-lg font-black text-black sm:text-xl lg:min-h-[4.5rem]"
+      style={{ backgroundColor: pointColor }}
+    >
+      <span className="whitespace-nowrap">{role} |</span>
+      <span className="whitespace-nowrap">{name}</span>
+    </h4>
+  );
+}
 
 type HomePageProps = {
   locale: Locale;
@@ -79,6 +145,14 @@ export default function HomePage({ locale, dict }: HomePageProps) {
   const arthroSpacerSlides = arthroSpacerImages.map((src, index) => ({
     src,
     alt: dict.solutions.arthroSpacer.slideAlts[index],
+  }));
+  const rtptialSlides = rtptialImages.map((src, index) => ({
+    src,
+    alt: dict.solutions.rtptial.imageAlts[index],
+  }));
+  const psiViewerModels = psiModels.map((model) => ({
+    ...model,
+    label: dict.solutions.rtptial.viewer.models[model.id],
   }));
 
   useEffect(() => {
@@ -219,7 +293,9 @@ export default function HomePage({ locale, dict }: HomePageProps) {
         />
         <div className="absolute inset-0 bg-black/70" />
 
-        <div className="relative z-10 mx-auto max-w-7xl">
+        {/* Wider than the other sections, so the text runs long beside a
+            full-size 3D view. */}
+        <div className="relative z-10 mx-auto max-w-[96rem]">
           <h2
             className="mb-10 text-right text-5xl font-black"
             style={{ color: pointColor }}
@@ -227,68 +303,42 @@ export default function HomePage({ locale, dict }: HomePageProps) {
             Solutions
           </h2>
 
+          {/* lg: half and half. xl: the media keeps 600px and the text takes the
+              rest. The media alternates sides, and comes first when stacked. */}
           <div className="space-y-8">
             <div
-              className="grid gap-6 rounded-2xl bg-black/60 p-6 md:grid-cols-[360px_1fr]"
+              className={`${solutionCard} lg:grid-cols-2 xl:grid-cols-[600px_minmax(0,1fr)]`}
               style={{ border: `1px solid ${pointColor}` }}
             >
-              <div className="grid grid-cols-2 gap-4">
-                {rtptialImages.map((src, index) => (
-                  <div key={src} className="flex items-center justify-center bg-black/50 p-4">
-                    <img
-                      src={src}
-                      alt={dict.solutions.rtptial.imageAlts[index]}
-                      className="max-h-52 object-contain"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              <div>
-                <h3
-                  className="mb-4 px-5 py-2 text-3xl font-black text-black"
-                  style={{ backgroundColor: pointColor }}
-                >
-                  RTPtial-PSI
-                </h3>
-                <p className="text-lg leading-8 text-gray-100">
-                  {dict.solutions.rtptial.description}
-                </p>
-                <ul className="mt-4 space-y-1 text-sm leading-6 text-gray-200 md:text-base md:leading-7">
-                  {dict.solutions.rtptial.features.map((feature) => (
-                    <li key={feature}>- {feature}</li>
-                  ))}
-                </ul>
-              </div>
+              <PsiViewer
+                models={psiViewerModels}
+                fallback={rtptialSlides}
+                accentColor={pointColor}
+                labels={dict.solutions.rtptial.viewer}
+                className={`aspect-square sm:aspect-[4/3] ${solutionMedia}`}
+              />
+              <SolutionText
+                title="RTPtial-PSI"
+                description={dict.solutions.rtptial.description}
+                features={dict.solutions.rtptial.features}
+              />
             </div>
 
             <div
-              className="grid gap-6 rounded-2xl bg-black/60 p-6 md:grid-cols-[360px_1fr]"
+              className={`${solutionCard} lg:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_600px]`}
               style={{ border: `1px solid ${pointColor}` }}
             >
               <ImageSlider
                 slides={arthroSpacerSlides}
                 accentColor={pointColor}
                 labels={dict.slider}
-                className="h-64 bg-black/50 md:h-auto md:min-h-[18rem]"
+                className={`media-stage aspect-[4/3] rounded-xl border border-white/10 lg:order-last ${solutionMedia}`}
               />
-
-              <div>
-                <h3
-                  className="mb-4 px-5 py-2 text-3xl font-black text-black"
-                  style={{ backgroundColor: pointColor }}
-                >
-                  ArthroSpacer
-                </h3>
-                <p className="text-lg leading-8 text-gray-100">
-                  {dict.solutions.arthroSpacer.description}
-                </p>
-                <ul className="mt-4 space-y-1 text-sm leading-6 text-gray-200 md:text-base md:leading-7">
-                  {dict.solutions.arthroSpacer.features.map((feature) => (
-                    <li key={feature}>- {feature}</li>
-                  ))}
-                </ul>
-              </div>
+              <SolutionText
+                title="ArthroSpacer"
+                description={dict.solutions.arthroSpacer.description}
+                features={dict.solutions.arthroSpacer.features}
+              />
             </div>
           </div>
         </div>
@@ -310,97 +360,85 @@ export default function HomePage({ locale, dict }: HomePageProps) {
             {dict.team.intro}
           </p>
 
-          <div className="grid gap-5 md:grid-cols-[360px_1fr]">
-            <div
-              className="rounded-lg bg-black/70 p-2"
-              style={{ border: `1px solid ${pointColor}` }}
-            >
+          {/* Below lg every portrait floats left of its list, magazine style, so
+              phones and tablets don't stack a small photo over a long list. The
+              photos are only ~240px wide, so they are never shown larger. */}
+          <article
+            className="overflow-hidden rounded-2xl bg-black/70 lg:grid lg:grid-cols-[340px_1fr]"
+            style={{ border: `1px solid ${pointColor}` }}
+          >
+            <div className="hidden p-3 lg:block">
               <img
                 src="/CEO-Profile.png"
                 alt={`${ceo.role} ${ceo.name}`}
-                className="h-full max-h-[420px] w-full rounded-md object-cover object-top"
+                className="h-full max-h-[440px] w-full rounded-xl object-cover object-top"
               />
             </div>
 
-            <div
-              className="overflow-hidden rounded-lg bg-black/70"
-              style={{ border: `1px solid ${pointColor}` }}
-            >
+            <div>
               <h3
-                className="px-6 py-3 text-3xl font-black text-black"
+                className="px-5 py-3 text-2xl font-black text-black sm:px-6 sm:text-3xl"
                 style={{ backgroundColor: pointColor }}
               >
                 {ceo.role} | {ceo.name}
               </h3>
 
-              <ul className="space-y-1 px-6 py-5 text-sm leading-6 text-gray-100 md:text-base md:leading-7">
-                {ceo.items.map((item) => (
-                  <li key={item}>- {item}</li>
-                ))}
-              </ul>
+              <div className="flow-root p-5 sm:p-6">
+                <img
+                  src="/CEO-Profile.png"
+                  alt={`${ceo.role} ${ceo.name}`}
+                  className="float-left mb-3 mr-4 aspect-[4/5] w-28 rounded-lg object-cover object-top sm:mr-6 sm:w-44 lg:hidden"
+                />
+                <DotList
+                  items={ceo.items}
+                  className="space-y-1.5 text-sm leading-6 text-gray-100 md:text-base md:leading-7"
+                />
+              </div>
             </div>
-          </div>
+          </article>
 
           <div className="mt-5 grid gap-5 lg:grid-cols-3">
             {mainTeamMembers.map(({ id, image }) => {
               const member = members[id];
               return (
-                <div
+                <article
                   key={id}
-                  className="overflow-hidden rounded-lg bg-black/70"
+                  className="overflow-hidden rounded-2xl bg-black/70"
                   style={{ border: `1px solid ${pointColor}` }}
                 >
-                  <h4
-                    className="flex flex-wrap items-center gap-x-2 px-4 py-2 text-xl font-black text-black lg:min-h-[4.5rem]"
-                    style={{ backgroundColor: pointColor }}
-                  >
-                    <span className="whitespace-nowrap">{member.role} |</span>
-                    <span className="whitespace-nowrap">{member.name}</span>
-                  </h4>
+                  <MemberHeading role={member.role} name={member.name} />
 
-                  <div className="p-4">
-                    <div className="mb-4 flex justify-center">
-                      <img
-                        src={image}
-                        alt={`${member.role} ${member.name}`}
-                        className="h-[250px] w-[210px] object-cover object-top"
-                      />
-                    </div>
-
-                    <ul className="space-y-1 text-xs leading-5 text-gray-100">
-                      {member.items.map((item) => (
-                        <li key={item}>- {item}</li>
-                      ))}
-                    </ul>
+                  <div className="flow-root p-5">
+                    <img
+                      src={image}
+                      alt={`${member.role} ${member.name}`}
+                      className="float-left mb-3 mr-4 block aspect-[4/5] w-28 rounded-lg object-cover object-top sm:mr-6 sm:w-40 lg:float-none lg:mx-auto lg:mb-5 lg:w-44"
+                    />
+                    <DotList
+                      items={member.items}
+                      className="space-y-1.5 text-sm leading-6 text-gray-100 lg:text-[13px] lg:leading-5"
+                    />
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
 
-          <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {subTeamMembers.map((id) => {
               const member = members[id];
               return (
-                <div
+                <article
                   key={id}
-                  className="overflow-hidden rounded-lg bg-black/70"
+                  className="overflow-hidden rounded-2xl bg-black/70"
                   style={{ border: `1px solid ${pointColor}` }}
                 >
-                  <h4
-                    className="flex flex-wrap items-center gap-x-2 px-4 py-2 text-xl font-black text-black lg:min-h-[4.5rem]"
-                    style={{ backgroundColor: pointColor }}
-                  >
-                    <span className="whitespace-nowrap">{member.role} |</span>
-                    <span className="whitespace-nowrap">{member.name}</span>
-                  </h4>
-
-                  <ul className="space-y-1 px-5 py-5 text-sm leading-6 text-gray-100">
-                    {member.items.map((item) => (
-                      <li key={item}>- {item}</li>
-                    ))}
-                  </ul>
-                </div>
+                  <MemberHeading role={member.role} name={member.name} />
+                  <DotList
+                    items={member.items}
+                    className="space-y-1.5 p-5 text-sm leading-6 text-gray-100"
+                  />
+                </article>
               );
             })}
           </div>

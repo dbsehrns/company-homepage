@@ -26,6 +26,21 @@ const ja: Dictionary = {
   solutions: {
     rtptial: {
       imageAlts: ["RTPtial PSI 1", "RTPtial PSI 2"],
+      viewer: {
+        label: "RTPtial-PSIガイドの3Dビューア",
+        models: { humerus: "上腕骨PSI", glenoid: "関節窩PSI" },
+        loading: "3Dモデルを読み込み中…",
+        hintRotate: "ドラッグで回転",
+        hintClickZoom: "クリック後、スクロールでズーム",
+        hintScroll: "スクロールでズーム",
+        hintPinch: "ピンチでズーム",
+        tapToExplore: "タップして3Dで見る",
+        done: "完了",
+        bone: "骨を表示",
+        reset: "視点をリセット",
+        expand: "全画面表示",
+        collapse: "全画面を閉じる",
+      },
       description:
         "RTPtial-PSIは、人工関節全置換術向けの3Dプリント患者適合型手術器具（PSI）を、AIによって完全自動で設計・製作するプラットフォームです。外科医に一貫した手術結果をもたらし、手術の最も重要な工程におけるリスクを低減します。",
       features: [

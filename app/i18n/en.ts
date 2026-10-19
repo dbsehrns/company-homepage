@@ -22,7 +22,23 @@ const en = {
   },
   solutions: {
     rtptial: {
+      // Photos shown when the 3D viewer can't run.
       imageAlts: ["RTPtial PSI 1", "RTPtial PSI 2"],
+      viewer: {
+        label: "Interactive 3D view of RTPtial-PSI guides",
+        models: { humerus: "Humeral PSI", glenoid: "Glenoid PSI" },
+        loading: "Loading 3D model…",
+        hintRotate: "Drag to rotate",
+        hintClickZoom: "Click, then scroll to zoom",
+        hintScroll: "Scroll to zoom",
+        hintPinch: "Pinch to zoom",
+        tapToExplore: "Tap to explore in 3D",
+        done: "Done",
+        bone: "Show bone",
+        reset: "Reset view",
+        expand: "Full screen",
+        collapse: "Exit full screen",
+      },
       description:
         "RTPtial-PSI is an AI-based, fully automated design and fabrication platform for 3D-printed patient-specific instruments (PSI) in total joint arthroplasty. It gives surgeons consistent outcomes and reduces risk in the most critical steps of surgery.",
       features: [

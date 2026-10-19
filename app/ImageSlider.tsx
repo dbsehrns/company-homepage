@@ -7,6 +7,8 @@ export type Slide = { src: string; alt: string };
 type ImageSliderProps = {
   slides: Slide[];
   accentColor: string;
+  // `show` takes {n} and {total} placeholders.
+  labels: { previous: string; next: string; show: string };
   intervalMs?: number;
   className?: string;
 };
@@ -14,6 +16,7 @@ type ImageSliderProps = {
 export default function ImageSlider({
   slides,
   accentColor,
+  labels,
   intervalMs = 3500,
   className = "",
 }: ImageSliderProps) {
@@ -56,7 +59,7 @@ export default function ImageSlider({
         <>
           <button
             type="button"
-            aria-label="Previous image"
+            aria-label={labels.previous}
             onClick={() => step(-1)}
             className={`${arrowClass} left-2`}
           >
@@ -64,7 +67,7 @@ export default function ImageSlider({
           </button>
           <button
             type="button"
-            aria-label="Next image"
+            aria-label={labels.next}
             onClick={() => step(1)}
             className={`${arrowClass} right-2`}
           >
@@ -76,7 +79,9 @@ export default function ImageSlider({
               <button
                 key={slide.src}
                 type="button"
-                aria-label={`Show image ${i + 1} of ${slides.length}`}
+                aria-label={labels.show
+                  .replace("{n}", String(i + 1))
+                  .replace("{total}", String(slides.length))}
                 aria-current={i === index}
                 onClick={() => setIndex(i)}
                 className="h-1.5 w-5 rounded-full transition-colors"

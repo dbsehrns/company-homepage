@@ -77,9 +77,17 @@ export function createPsiScene(
   container: HTMLElement,
   options: { autoRotate: boolean; accent: string },
 ): PsiScene {
+  // Phone GPUs pay for every covered pixel, and zooming covers more of them:
+  // on touch screens render at 1x while a finger drags or pinches, a quarter
+  // of the pixels at 2x, and sharpen again once the view settles.
+  const deviceRatio = window.devicePixelRatio;
+  const touchFirst = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  const stillRatio = Math.min(deviceRatio, 2);
+  const movingRatio = touchFirst ? Math.min(deviceRatio, 1) : stillRatio;
+
   // Throws where WebGL is unavailable; the caller falls back to photos.
   const renderer = new WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(stillRatio);
   renderer.toneMapping = NeutralToneMapping;
   renderer.domElement.className = "block h-full w-full outline-none";
   container.appendChild(renderer.domElement);
@@ -132,6 +140,16 @@ export function createPsiScene(
   controls.addEventListener("start", () => {
     controls.autoRotate = false;
     tween = null;
+    interacting = true;
+    setRatio(movingRatio);
+  });
+  controls.addEventListener("end", () => {
+    interacting = false;
+  });
+  // Wheel and pinch zoom move the camera inside the controls' own update()
+  // call, so the render loop's update() reports no change: redraw on "change".
+  controls.addEventListener("change", () => {
+    dirty = true;
   });
 
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
@@ -147,6 +165,8 @@ export function createPsiScene(
   let fitRadius = 0;
   let outerRadius = 0;
   let guideRadius = 0;
+  // Between the controls' "start" and "end": a finger or the mouse is down.
+  let interacting = false;
   // Set when something other than the controls changed the picture.
   let dirty = true;
 
@@ -242,6 +262,13 @@ export function createPsiScene(
   resizeObserver.observe(container);
   resize();
 
+  function setRatio(ratio: number) {
+    if (renderer.getPixelRatio() === ratio) return;
+    renderer.setPixelRatio(ratio);
+    // Resizing the drawing buffer clears it: draw now, so no blank frame shows.
+    renderer.render(scene, camera);
+  }
+
   function tick(now: number) {
     let moved = false;
     if (tween) {
@@ -251,9 +278,12 @@ export function createPsiScene(
       if (t === 1) tween = null;
       moved = true;
     }
-    // update() reports any camera motion, damping and auto-rotate included,
+    // update() reports the motion it applies itself (damping, auto-rotate),
     // so a still view costs no redraws.
-    if (controls.update() || moved || dirty) {
+    if (controls.update()) moved = true;
+    // The gesture is over and the view has settled: back to full sharpness.
+    if (!moved && !interacting) setRatio(stillRatio);
+    if (moved || dirty) {
       renderer.render(scene, camera);
       dirty = false;
     }

@@ -188,11 +188,11 @@ const ko: Dictionary = {
         ],
       },
       intern: {
-        role: "Intern",
+        role: "SW/AI Engineer",
         name: "신중훈",
         items: [
           "건국대학교 소프트웨어학과 학사",
-          "현 주식회사 이소 인턴",
+          "현 주식회사 이소 SW/AI Engineer",
           "의료 AI 소프트웨어 개발",
           "IT 시스템 운영",
           "AI 기반 자동 설계 플랫폼",

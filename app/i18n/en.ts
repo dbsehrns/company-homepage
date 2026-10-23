@@ -185,11 +185,11 @@ const en = {
         ],
       },
       intern: {
-        role: "Intern",
+        role: "SW/AI Engineer",
         name: "JoongHoon Shin",
         items: [
           "B.S. in Software Technology, Konkuk University",
-          "Intern, EASO Co. Ltd.",
+          "SW/AI Engineer, EASO Co. Ltd.",
           "Medical AI software development",
           "IT system operation",
           "AI-driven automated design platforms",

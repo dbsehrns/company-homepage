@@ -186,11 +186,11 @@ const ja: Dictionary = {
         ],
       },
       intern: {
-        role: "インターン",
+        role: "SW/AIエンジニア",
         name: "JoongHoon Shin",
         items: [
           "建国大学校 ソフトウェア学士",
-          "株式会社EASO インターン",
+          "株式会社EASO SW/AIエンジニア",
           "医療AIソフトウェア開発",
           "ITシステム運用",
           "AIによる自動設計プラットフォーム",

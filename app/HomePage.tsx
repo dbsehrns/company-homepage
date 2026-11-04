@@ -14,9 +14,9 @@ const pointColor = "rgb(190, 242, 100)";
 type MemberId = keyof Dictionary["team"]["members"];
 
 const mainTeamMembers: { id: MemberId; image: string }[] = [
-  { id: "coo", image: "/COO-Profile.png" },
-  { id: "cso", image: "/CSO-Profile.png" },
-  { id: "cmo", image: "/CMO-Profile.png" },
+  { id: "coo", image: "/COO-Profile.webp" },
+  { id: "cso", image: "/CSO-Profile.webp" },
+  { id: "cmo", image: "/CMO-Profile.webp" },
 ];
 
 const subTeamMembers: MemberId[] = ["qa", "hw", "sw", "intern"];
@@ -362,14 +362,15 @@ export default function HomePage({ locale, dict }: HomePageProps) {
 
           {/* Below lg every portrait floats left of its list, magazine style, so
               phones and tablets don't stack a small photo over a long list. The
-              photos are only ~240px wide, so they are never shown larger. */}
+              portraits are AI-upscaled from ~240px originals (CEO 720px, others
+              480px wide), enough for ~2x screens at these sizes. */}
           <article
             className="overflow-hidden rounded-2xl bg-black/70 lg:grid lg:grid-cols-[340px_1fr]"
             style={{ border: `1px solid ${pointColor}` }}
           >
             <div className="hidden p-3 lg:block">
               <img
-                src="/CEO-Profile.png"
+                src="/CEO-Profile.webp"
                 alt={`${ceo.role} ${ceo.name}`}
                 className="h-full max-h-[440px] w-full rounded-xl object-cover object-top"
               />
@@ -385,7 +386,7 @@ export default function HomePage({ locale, dict }: HomePageProps) {
 
               <div className="flow-root p-5 sm:p-6">
                 <img
-                  src="/CEO-Profile.png"
+                  src="/CEO-Profile.webp"
                   alt={`${ceo.role} ${ceo.name}`}
                   className="float-left mb-3 mr-4 aspect-[4/5] w-28 rounded-lg object-cover object-top sm:mr-6 sm:w-44 lg:hidden"
                 />
